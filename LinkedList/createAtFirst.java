@@ -114,6 +114,37 @@ public class createAtFirst {
             tail=prev;
             return val;
         }
+
+        public int itrSearch(int key){
+            Node temp=head;
+            int idx=0;
+            while(temp!=null){
+                if(temp.data==key){
+                    return idx;
+                }
+                else{
+                    temp=temp.next;
+                    idx++;
+                }
+            }
+            return -1;
+        }
+        public int helper(Node head,int key){
+            if(head==null){
+                return -1;
+            }
+            if(head.data ==key){
+                return 0;
+            }
+            int idx =helper(head.next,key);
+            if(idx==-1){
+                return-1;
+            }
+            return idx+1;
+        }
+        public int recursiveSearch(int key){
+            return helper(head,key);
+        }
     
         public void printLinkedlist(){
             //for empty linked list
@@ -131,25 +162,73 @@ public class createAtFirst {
             }
             System.out.println();
         }
-    
+        
+
+        public static boolean isCycle(){
+            //checks for loop is there or not
+            Node slow= head;
+            Node fast=head;
+            while(fast!=null && fast.next !=null){
+                slow=slow.next;
+                fast=fast.next.next;
+                if(slow==fast){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void removeCycle(){
+            Node slow=head;
+            Node fast=head;
+            boolean cycle=false;
+            while(fast !=null && fast.next !=null){
+                slow=slow.next;
+                fast=fast.next.next;
+                if(fast ==slow){
+                    cycle=true;
+                }
+            }
+
+            if(cycle==false){
+                return;
+            }
+
+            slow=head;
+        }
+
+
         public static void main(String[] args) {
-            createAtFirst l1=new createAtFirst();
-            l1.printLinkedlist();
-            l1.addFirst(2);
-            l1.printLinkedlist();
-            l1.addFirst(1);
-            l1.printLinkedlist();
-            l1.addLast(3);
-            l1.printLinkedlist();
-            l1.addLast(4);
-            l1.printLinkedlist();
-            l1.add(2, 9);
-            l1.printLinkedlist();
-            System.out.println("Size of linked list is: "+ l1.size);
-            l1.printLinkedlist();
-            System.out.println("removed value with data: "+ l1.removeFirst());
-            l1.printLinkedlist();
-            l1.removeLast();
-            l1.printLinkedlist();
+            // createAtFirst l1=new createAtFirst();
+            // l1.printLinkedlist();
+            // l1.addFirst(2);
+            // l1.printLinkedlist();
+            // l1.addFirst(1);
+            // l1.printLinkedlist();
+            // l1.addLast(3);
+            // l1.printLinkedlist();
+            // l1.addLast(4);
+            // l1.printLinkedlist();
+            // l1.add(2, 9);
+            // l1.printLinkedlist();
+            // System.out.println("Size of linked list is: "+ l1.size);
+            // l1.printLinkedlist();
+            // System.out.println("removed value with data: "+ l1.removeFirst());
+            // l1.printLinkedlist();
+            // l1.removeLast();
+            // l1.printLinkedlist();
+
+            // System.out.println("key found at index = "+ l1.itrSearch(3));
+            // System.out.println("key found at index = "+ l1.recursiveSearch(2));
+
+            // createAtFirst l2=new createAtFirst();
+            head = new Node(1);
+            head.next=new Node(2);
+            head.next.next=new Node(3);
+            head.next.next.next=new Node(4);
+            // head.next.next.next=head;
+            System.out.println(isCycle());
+
+
     }
 }
